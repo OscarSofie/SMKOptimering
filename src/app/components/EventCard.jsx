@@ -5,7 +5,7 @@ import Button from "./Button";
 import { SignedIn } from "@clerk/nextjs";
 import DeleteButton from "./kurator/DeleteButton";
 import { sletEvent } from "@/actions/actions";
-
+import RedigerButton from "./kurator/RedigerButton";
 
 const EventCard = async ({
   event,
@@ -60,9 +60,7 @@ const EventCard = async ({
 
           <div className="flex lg:flex-row flex-col gap-4">
             <SignedIn>
-              <Link href={`/secret/${event.id}`}>
-                <Button variant="primary">Rediger event</Button>
-              </Link>
+              <RedigerButton event={event} />
 
               <form action={sletEvent}>
                 <input type="hidden" name="eventId" value={event.id} />

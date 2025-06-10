@@ -5,18 +5,15 @@ import { getSearchResults } from "@/api/page";
 import { useZustand } from "@/store/zustand";
 import Image from "next/image";
 
-
 const SearchArt = ({ alleVaerker = [] }) => {
   const { artworks, addArtwork, removeArtwork } = useZustand();
 
-  
   const [searchQuery, setsearchQuery] = useState("");
 
-  
   const [results, setResults] = useState([]);
-  const [page, setPage] = useState(1); 
+  const [page, setPage] = useState(1);
 
-  const prSide = 30; 
+  const prSide = 30;
 
   // Prompt: Hvordan laver jeg en søgefunktion der kalder et API og viser resultater? (uden useEffect)
   const soegVaerker = async () => {
@@ -26,7 +23,7 @@ const SearchArt = ({ alleVaerker = [] }) => {
     setPage(1);
   };
 
-  //v Prompt: Jeg skal lave en funktion der kan tilføje og fjerne et værk, det skal ske igennem objekts id. 
+  //v Prompt: Jeg skal lave en funktion der kan tilføje og fjerne et værk, det skal ske igennem objekts id.
   const klikCheckbox = (item) => {
     const id = encodeURIComponent(item.object_number);
     const isSelected = artworks.some((art) => art.object_number === id);
@@ -35,10 +32,9 @@ const SearchArt = ({ alleVaerker = [] }) => {
 
   const kunstListe = (searchQuery ? results : alleVaerker).filter(
     (item) => item.image_thumbnail
-
   );
 
-  // 
+  //
   const antalSider = Math.ceil(kunstListe.length / prSide);
   const side = kunstListe.slice((page - 1) * prSide, page * prSide);
 
@@ -94,7 +90,7 @@ const SearchArt = ({ alleVaerker = [] }) => {
                   {item.titles?.[0]?.title || item.object_number}
                 </p>
                 <p className="text-xs-fluid text-kurator-secondary">
-                  {item.artist_names?.[0] || "Ukendt kunstner"}
+                  {item.artist || "Ukendt kunstner"}
                 </p>
               </div>
             </li>

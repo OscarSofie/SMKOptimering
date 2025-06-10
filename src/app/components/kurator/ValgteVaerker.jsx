@@ -30,7 +30,7 @@ const ValgteVaerker = () => {
               </p>
 
               <p className="text-xs-fluid text-kurator-secondary">
-                {item.artist_names?.[0] || "Ukendt kunstner"}
+                {item.artist || "Ukendt kunstner"}
               </p>
 
               <button
