@@ -6,6 +6,7 @@ import { SignedIn } from "@clerk/nextjs";
 import DeleteButton from "./kurator/DeleteButton";
 import { sletEvent } from "@/actions/actions";
 
+
 const EventCard = async ({
   event,
   title,

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
 import { bookTickets } from "@/api/page";
 import SubmitButton from "./kurator/SubmitButton";
 
@@ -100,7 +99,7 @@ export default function TilmeldingForm({ event }) {
 
           {error && <p className="text-red-600">{error}</p>}
 
-          <SubmitButton className="border p-3 hover:bg-blue-100">
+          <SubmitButton >
             Bekræft tilmelding
           </SubmitButton>
         </form>

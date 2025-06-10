@@ -20,7 +20,7 @@ export async function getSingleArtwork(artworkIds) {
   return data.items;
 }
 
-export async function getArtwork(objectIDs) {
+/* export async function getArtwork(objectIDs) {
   const query = Array.isArray(objectIDs)
     ? objectIDs.map(encodeURIComponent).join(",")
     : encodeURIComponent(objectIDs);
@@ -30,7 +30,7 @@ export async function getArtwork(objectIDs) {
   );
   const data = await res.json();
   return data;
-}
+} */
 
 export async function getAllArtworks() {
   const res = await fetch(
