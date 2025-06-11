@@ -44,7 +44,7 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Kolonne 3: Kontakt og praktisk info */}
+ 
         <div className="space-y-4">
           <div>
             <h3 className="font-semibold">Statens Museum for Kunst</h3>

@@ -16,6 +16,7 @@ const allLocations = {
 };
 
 export default async function EventPage() {
+ 
   const allEvents = await getEvents();
   const eventGroups = { 1: [], 2: [], 3: [] };
 
@@ -25,12 +26,15 @@ export default async function EventPage() {
     }
   });
 
+
   const ifChosenLocation = [];
   for (const id in eventGroups) {
     if (eventGroups[id].length > 0) {
       ifChosenLocation.push({ id, name: allLocations[id] });
     }
   }
+  
+  const firstAvailableLocationId = ifChosenLocation.length > 0 ? ifChosenLocation[0].id : null;
 
   return (
     <div className="px-1 sm:px-8 lg:px-20 py-4">
@@ -53,7 +57,8 @@ export default async function EventPage() {
       </div>
 
       <div className="mt-6 px-1 sm:px-16">
-        {[1, 2, 3].map((locationId) => {
+        {ifChosenLocation.map((location) => {
+          const locationId = location.id;
           const events = eventGroups[locationId];
           if (events.length === 0) return null;
 
@@ -64,7 +69,7 @@ export default async function EventPage() {
                   <h1 className="text-2xl-fluid font-extrabold">
                     {allLocations[locationId]}
                   </h1>
-                  {locationId === 1 && (
+                  {locationId === firstAvailableLocationId && (
                     <DropdownLocations locations={ifChosenLocation} />
                   )}
                 </div>

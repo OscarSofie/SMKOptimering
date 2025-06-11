@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { bookTickets } from "@/api/page";
 import SubmitButton from "./kurator/SubmitButton";
@@ -20,12 +20,10 @@ export default function TilmeldingForm({ event }) {
   const handleSubmit = async (mail) => {
     mail.preventDefault();
 
-    //Prompt: Giver det mening at skrive dette om til ternary rendering?
     if (!email.includes("@")) {
       setError("Indtast en gyldig emailadresse");
       return;
     }
-    //Kan jeg bruge router.refresh eller andet til at sørge for at siden opdateres når jeg har submittet, så totalTickets og bookedTickets opdateres?
     const newBookedTickets = booked + selectedTickets;
     const orderId = generateOrderId();
 
@@ -57,6 +55,23 @@ export default function TilmeldingForm({ event }) {
     }
   };
 
+  // Polling for real-time opdatering af ledige billetter
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/events/${event.id}`);
+        if (res.ok) {
+          const updatedEvent = await res.json();
+          setBooked(updatedEvent.bookedTickets);
+        }
+      } catch (err) {
+        // evt. håndter fejl
+      }
+    }, 30000); // 30 sekunder
+
+    return () => clearInterval(interval);
+  }, [event.id]);
+
   return (
     <div className="p-10 space-y-6">
       <h1 className="text-4xl font-bold">Tilmelding til: {event.title}</h1>
@@ -80,7 +95,6 @@ export default function TilmeldingForm({ event }) {
               min="1"
               max={available}
               value={selectedTickets}
-              //Giv mig en React onChange-handler til et number-input, som opdaterer en state-variabel med en tal og ikke en tekststreng
               onChange={(e) => setSelectedTickets(Number(e.target.value))}
               className="ml-2 border px-2 py-1 w-20"
             />
