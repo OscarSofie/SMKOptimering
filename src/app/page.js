@@ -13,7 +13,7 @@ import {
 import Hero from "./components/Hero";
 import Header from "./components/layout/Header";
 
-export const revalidate = 60
+export const revalidate = 20
 export default async function Home() {
   const allEvents = await getEvents();
   const sliderEvents = allEvents
