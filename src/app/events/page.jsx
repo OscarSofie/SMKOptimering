@@ -9,23 +9,20 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-const allLocations = {
-  1: "København",
-  2: "Aarhus",
-  3: "Odense",
-};
-
 export default async function EventPage() {
- 
   const allEvents = await getEvents();
-  const eventGroups = { 1: [], 2: [], 3: [] };
 
+  const allLocations = {};
+  const eventGroups = {};
   allEvents.forEach((event) => {
-    if (eventGroups[event.locationId]) {
-      eventGroups[event.locationId].push(event);
+    if (event.locationId && event.location?.address) {
+      allLocations[event.locationId] = event.location.adress;
     }
+    if (!eventGroups[event.locationId]) {
+      eventGroups[event.locationId] = [];
+    }
+    eventGroups[event.locationId].push(event);
   });
-
 
   const ifChosenLocation = [];
   for (const id in eventGroups) {
@@ -33,8 +30,9 @@ export default async function EventPage() {
       ifChosenLocation.push({ id, name: allLocations[id] });
     }
   }
-  
-  const firstAvailableLocationId = ifChosenLocation.length > 0 ? ifChosenLocation[0].id : null;
+
+  const firstAvailableLocationId =
+    ifChosenLocation.length > 0 ? ifChosenLocation[0].id : null;
 
   return (
     <div className="px-1 sm:px-8 lg:px-20 py-4">
@@ -67,7 +65,7 @@ export default async function EventPage() {
               <div id={`location-${locationId}`}>
                 <div className="mt-6 flex items-center justify-between gap-4">
                   <h1 className="text-2xl-fluid font-extrabold">
-                    {allLocations[locationId]}
+                    {events[0]?.location?.address}
                   </h1>
                   {locationId === firstAvailableLocationId && (
                     <DropdownLocations locations={ifChosenLocation} />
