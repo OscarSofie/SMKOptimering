@@ -1,8 +1,7 @@
 import Image from "next/image";
 import { fetchSomeArtworks } from "@/api/page";
-import SearchArt from "./SearchArt";
 import ValgteVaerker from "./ValgteVaerker";
-
+import SearchArt from "./SearchArt";
 
 const AllArtworks = async () => {
   const vaerker = await fetchSomeArtworks();
@@ -11,8 +10,6 @@ const AllArtworks = async () => {
     <div>
       <ValgteVaerker />
       <SearchArt alleVaerker={vaerker} />
-      
-      
     </div>
   );
 };
