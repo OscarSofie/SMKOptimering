@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getEvents, getSingleArtwork } from "@/api/page";
 import EventHero from "../app/components/EventHero";
 import Button from "../app/components/Button";
+
 import {
   Carousel,
   CarouselContent,
@@ -12,6 +13,7 @@ import {
 import Hero from "./components/Hero";
 import Header from "./components/layout/Header";
 
+export const revalidate = 60
 export default async function Home() {
   const allEvents = await getEvents();
   const sliderEvents = allEvents

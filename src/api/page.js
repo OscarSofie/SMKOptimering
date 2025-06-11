@@ -2,11 +2,7 @@
 
 export async function getEvents() {
   console.log("getEvents kaldt:", new Date().toISOString());
-  const res = await fetch("https://eksamenso.onrender.com/events", {
-    next: { 
-      revalidate: 8, 
-    },
-  })
+  const res = await fetch("https://eksamenso.onrender.com/events")
   const data = await res.json();
   return data;
 
