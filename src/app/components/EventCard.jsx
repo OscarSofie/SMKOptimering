@@ -8,12 +8,7 @@ import { sletEvent } from "@/actions/actions";
 import RedigerButton from "./kurator/RedigerButton";
 
 const EventCard = async ({
-  event,
-  title,
-  description,
-  date,
-  image,
-  isCurator,
+  event
 }) => {
   const artworks = await getSingleArtwork(event.artworkIds[0]);
 

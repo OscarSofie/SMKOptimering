@@ -20,7 +20,7 @@ const Hero = () => {
           </div>
           <div className="flex gap-4 text-xl-fluid">
             <Link href="/events">
-              <Button variant="secondary">Se udstillinger</Button>
+              <Button variant="third">Se udstillinger</Button>
             </Link>
           </div>
         </div>
