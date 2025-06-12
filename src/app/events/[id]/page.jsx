@@ -95,6 +95,7 @@ const SingleEvent = async ({ params }) => {
                   height={300}
                   className="w-full h-auto object-cover"
                 />
+              <p>Se kunstværk →</p>
               </Link>
             </div>
           ))}

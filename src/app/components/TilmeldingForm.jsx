@@ -113,7 +113,8 @@ export default function TilmeldingForm({ event }) {
 
           {error && <p className="text-red-600">{error}</p>}
 
-          <SubmitButton>Bekræft tilmelding</SubmitButton>
+          <SubmitButton
+          variant="third">Bekræft tilmelding</SubmitButton>
         </form>
       ) : (
         <p className="text-red-600 font-bold">

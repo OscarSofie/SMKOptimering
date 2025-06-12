@@ -45,14 +45,14 @@ const Header = () => {
       <div className="flex flex-row gap-4">
         <SignedOut>
           <SignInButton>
-            <Button variant="third">Log ind</Button>
+            <Button variant="secondary">Log ind</Button>
           </SignInButton>
         </SignedOut>
         <SignedIn>
           <UserButton />
 
           <Link href="/secret/opret">
-            <Button variant="third">Opret Event</Button>
+            <Button variant="secondary" >Opret Event</Button>
           </Link>
         </SignedIn>
       </div>
