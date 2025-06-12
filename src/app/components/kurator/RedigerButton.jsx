@@ -2,10 +2,8 @@
 
 import Link from "next/link";
 import Button from "../Button";
-import { useZustand } from "@/store/zustand";
 
 const RedigerButton = ({ event }) => {
-  const { clearArtworks } = useZustand;
   return (
     <Link
       href={`/secret/${event.id}`}

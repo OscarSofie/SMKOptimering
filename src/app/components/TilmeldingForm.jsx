@@ -39,7 +39,7 @@ export default function TilmeldingForm({ event }) {
       const res = await fetch("/api/sendMail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, orderId, selectedTickets }),
+        body: JSON.stringify({ email, orderId, selectedTickets, event }),
       });
 
       if (!res.ok) {
@@ -113,9 +113,7 @@ export default function TilmeldingForm({ event }) {
 
           {error && <p className="text-red-600">{error}</p>}
 
-          <SubmitButton >
-            Bekræft tilmelding
-          </SubmitButton>
+          <SubmitButton>Bekræft tilmelding</SubmitButton>
         </form>
       ) : (
         <p className="text-red-600 font-bold">

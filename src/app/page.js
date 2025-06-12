@@ -13,14 +13,14 @@ import {
 import Hero from "./components/Hero";
 import Header from "./components/layout/Header";
 
-export const revalidate = 20
+export const revalidate = 2;
 export default async function Home() {
   const allEvents = await getEvents();
   const sliderEvents = allEvents
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5);
 
-    console.log(allEvents)
+  console.log(allEvents);
 
   const heroEvents = await Promise.all(
     sliderEvents.map(async (event) => {
@@ -33,12 +33,9 @@ export default async function Home() {
     })
   );
 
-
-
   return (
     <div>
       <div className="bg-img min-h-dvh">
-
         <Hero />
       </div>
       <main>
@@ -46,10 +43,7 @@ export default async function Home() {
           <Carousel className="w-full">
             <CarouselContent>
               {heroEvents.map((event) => (
-                <CarouselItem
-                  key={event.id}
-
-                >
+                <CarouselItem key={event.id}>
                   <EventHero
                     event={event}
                     heroImage={event.heroImage}
@@ -64,7 +58,6 @@ export default async function Home() {
             </div>
           </Carousel>
         </div>
-
       </main>
     </div>
   );

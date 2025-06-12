@@ -16,7 +16,7 @@ export default async function EventPage() {
   const eventGroups = {};
   allEvents.forEach((event) => {
     if (event.locationId && event.location?.address) {
-      allLocations[event.locationId] = event.location.adress;
+      allLocations[event.locationId] = event.location.address;
     }
     if (!eventGroups[event.locationId]) {
       eventGroups[event.locationId] = [];
@@ -27,7 +27,7 @@ export default async function EventPage() {
   const ifChosenLocation = [];
   for (const id in eventGroups) {
     if (eventGroups[id].length > 0) {
-      ifChosenLocation.push({ id, name: allLocations[id] });
+      ifChosenLocation.push({ id: Number(id), name: allLocations[id] });
     }
   }
 
@@ -56,7 +56,7 @@ export default async function EventPage() {
 
       <div className="mt-6 px-1 sm:px-16">
         {ifChosenLocation.map((location) => {
-          const locationId = location.id;
+          const locationId = Number(location.id);
           const events = eventGroups[locationId];
           if (events.length === 0) return null;
 
