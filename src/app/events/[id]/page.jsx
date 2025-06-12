@@ -33,12 +33,14 @@ const SingleEvent = async ({ params }) => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href={`/events/${id}`}>{event.title}</BreadcrumbLink>
+            <BreadcrumbLink href={`/events/${id}`}>
+              {event.title}
+            </BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
-{/*       <div className="relative h-[75vh] w-full flex items-center justify-center mt-6 border-b-1">
+      {/*       <div className="relative h-[75vh] w-full flex items-center justify-center mt-6 border-b-1">
         <Image
           src={heroArt?.image_thumbnail || "/img/placeholder.svg"}
           alt="Kunstværk"
@@ -61,10 +63,15 @@ const SingleEvent = async ({ params }) => {
           <span>{event.location?.address}</span>
         </div>
       </div>
+      <div className=" pt-8 pb-8 px-1 md:px-20">
+        <Link href={`/tilmelding/${event.id}`}>
+          <Button variant="third">Tilmeld dig eventet</Button>
+        </Link>
+      </div>
 
       <div className="px-1 md:px-20 py-12 border-t">
         <h2 className="text-2xl-fluid font-bold text-kurator-primary mb-4">
-          Værker:
+          Værker til eventet:
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {artworks.map((art) => (
@@ -92,14 +99,6 @@ const SingleEvent = async ({ params }) => {
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="border-t pt-8 pb-8 px-1 md:px-20">
-        <Link href={`/tilmelding/${event.id}`}>
-          <Button variant="primary" >
-            Tilmeld dig eventet
-          </Button>
-        </Link>
       </div>
     </div>
   );

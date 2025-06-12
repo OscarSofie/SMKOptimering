@@ -18,6 +18,14 @@ const Button = ({ variant = "primary", children, ...props }) => {
       hover:text-[var(--color-kurator-primary)]
       
     `,
+    third: `
+      bg-[var(--color-kurator-primary)]
+      text-white
+      border-[var(--color-kurator-primary)]
+      hover:bg-white
+      hover:text-[var(--color-kurator-primary)]
+      
+    `,
   };
 
   return (
