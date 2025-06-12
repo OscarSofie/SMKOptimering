@@ -2,12 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import Button from "../Button";
 import Burger from "./Burger";
@@ -29,18 +24,42 @@ const Header = () => {
   }`;
 
   return (
-    <nav className={`${navClass} full-bleed`}>
-
-      
+    <nav className={`${navClass}`}>
       <div className="text-2xl-fluid font-extrabold">
-        <Link href="/">SMK<span className="text-red-500">.</span></Link>
+        <Link href="/">
+          SMK<span className="text-red-500">.</span>
+        </Link>
+      </div>
+      <ul className="flex flex-row gap-4  sm:xs-fluid lg:xl-fluid">
+        <li className=" hover:underline">
+          <Link href="/events" >
+            Udstillinger
+          </Link>
+        </li>
+        <li className=" hover:underline">
+          <Link href="/about" >
+            Om SMK
+          </Link>
+        </li>
+      </ul>
+      <div className="flex flex-row gap-4">
+        <SignedOut>
+          <SignInButton>
+            <Button variant="third">Log ind</Button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+
+          <Link href="/secret/opret">
+            <Button variant="third">Opret Event</Button>
+          </Link>
+        </SignedIn>
       </div>
 
-
-    
-      <div>
+      {/* <div>
         <Burger />
-      </div>
+      </div> */}
     </nav>
   );
 };

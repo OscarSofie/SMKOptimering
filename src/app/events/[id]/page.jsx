@@ -38,14 +38,15 @@ const SingleEvent = async ({ params }) => {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="relative h-[75vh] w-full flex items-center justify-center mt-6 border-b-1">
+{/*       <div className="relative h-[75vh] w-full flex items-center justify-center mt-6 border-b-1">
         <Image
           src={heroArt?.image_thumbnail || "/img/placeholder.svg"}
-          alt={event.title}
+          alt="Kunstværk"
           fill
+          
           className="w-full h-auto object-contain pb-0 md:pb-10"
         />
-      </div>
+      </div> */}
 
       <div className="text-left text-kurator-primary px-1 md:px-16 py-2 md:py-16 space-y-5 mt-10 md:mt-0">
         <h1 className="text-4xl md:text-6xl font-extrabold">{event.title}</h1>
@@ -82,7 +83,7 @@ const SingleEvent = async ({ params }) => {
               >
                 <Image
                   src={art.image_thumbnail}
-                  alt={art.title}
+                  alt="Kunstværk"
                   width={400}
                   height={300}
                   className="w-full h-auto object-cover"

@@ -66,16 +66,17 @@ const Burger = () => {
               </SignedOut>
               <SignedIn>
                 <UserButton />
-                <Link href="/secret/opret" onClick={() => setIsOpen(false)}>
-                  <Link
-                    href="/secret/opret"
-                    onNavigate={(e) => {
-                      e.preventDefault();
-                      window.location.href = "/secret/opret";
-                    }}
-                  >
-                    <Button variant="primary">Opret Event</Button>
-                  </Link>
+
+                <Link
+                  href="/secret/opret"
+                  onNavigate={(e) => {
+                    e.preventDefault();
+                    window.location.href = "/secret/opret";
+                  }}
+                >
+                  <Button variant="primary" onClick={() => setIsOpen(false)}>
+                    Opret Event
+                  </Button>
                 </Link>
               </SignedIn>
             </div>

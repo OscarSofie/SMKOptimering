@@ -7,9 +7,7 @@ import Image from "next/image";
 
 const SearchArt = ({ alleVaerker = [] }) => {
   const { artworks, addArtwork, removeArtwork } = useZustand();
-
   const [searchQuery, setsearchQuery] = useState("");
-
   const [results, setResults] = useState([]);
   const [page, setPage] = useState(1);
 
@@ -22,7 +20,7 @@ const SearchArt = ({ alleVaerker = [] }) => {
     setResults(data);
     setPage(1);
   };
-
+  
   //v Prompt: Jeg skal lave en funktion der kan tilføje og fjerne et værk, det skal ske igennem objekts id.
   const klikCheckbox = (item) => {
     const id = encodeURIComponent(item.object_number);
