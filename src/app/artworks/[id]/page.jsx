@@ -79,7 +79,9 @@ const ArtSingleview = async ({ params, searchParams }) => {
         </h1>
         <p className="text-base-fluid">{item.artist}</p>
         <p className="text-sm-fluid italic">{item.techniques?.[0]}</p>
-        <p className="text-sm-fluid">{item.production_date?.[0]?.period}</p>
+        <p className="text-sm-fluid">
+          Periode: {item.production_date?.[0]?.period}
+        </p>
         <p className="text-sm-fluid columns-1 md:columns-2 gap-10">
           {item.production?.[0]?.creator_history}
         </p>
@@ -87,7 +89,7 @@ const ArtSingleview = async ({ params, searchParams }) => {
 
       {similarArtworks.length > 0 && (
         <div className="px-1 md:px-20 py-10 border-t">
-          <h2 className="text-2xl-fluid font-bold mb-6">Lignende værker</h2>
+          <h2 className="text-2xl-fluid font-bold mb-6">Lignende værker:</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {similarArtworks.map(
               (artwork) =>
