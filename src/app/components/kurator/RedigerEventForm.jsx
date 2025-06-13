@@ -47,9 +47,17 @@ export default function RedigerEventForm({ event }) {
         className="border border-[var(--color-kurator-primary)] p-2 text-[var(--text-sm)] leading-[var(--leading-normal)]"
         defaultValue={event.location?.name}
       >
+        <option value="">Vælg lokation</option>
         <option value="1">Kunsthallen A</option>
         <option value="2">Galleri B</option>
         <option value="3">Warehouse C</option>
+        <option value="4">Kunstforeningen D</option>
+        <option value="5">Studio E</option>
+        <option value="6">Kunstlab F</option>
+        <option value="7">Kulturhuset G</option>
+        <option value="8">Galleriet H</option>
+        <option value="9">Kunstrum I</option>
+        <option value="10">Værkstedet J</option>
       </select>
 
       <select

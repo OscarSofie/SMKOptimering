@@ -5,11 +5,11 @@ import Link from "next/link";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import Button from "../Button";
+import OpretButton from "../kurator/OpretButton";
 import Burger from "./Burger";
 
 const Header = () => {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
 
   const isHome = pathname === "/";
   const hideHeader =
@@ -24,42 +24,45 @@ const Header = () => {
   }`;
 
   return (
-    <nav className={`${navClass}`}>
-      <div className="text-2xl-fluid font-extrabold">
+    <nav className={`flex flex-row items-center  ${navClass}`}>
+      
+      <div className="text-2xl-fluid font-extrabold ">
         <Link href="/">
           SMK<span className="text-red-500">.</span>
         </Link>
       </div>
-      <ul className="flex flex-row gap-4  sm:xs-fluid lg:xl-fluid">
-        <li className=" hover:underline">
-          <Link href="/events" >
-            Udstillinger
-          </Link>
-        </li>
-        <li className=" hover:underline">
-          <Link href="/about" >
-            Om SMK
-          </Link>
-        </li>
-      </ul>
-      <div className="flex flex-row gap-4">
+
+      
+      <div className="hidden md:flex flex-1 justify-center">
+        <ul className="flex flex-row gap-4">
+          <li className="hover:underline">
+            <Link href="/events">Udstillinger</Link>
+          </li>
+          <li className="hover:underline">
+            <Link href="/about">Om SMK</Link>
+          </li>
+        </ul>
+      </div>
+
+     
+      <div className="hidden md:flex flex-row gap-4 items-center ">
         <SignedOut>
           <SignInButton>
-            <Button variant="secondary">Log ind</Button>
+            <Button variant={isHome ? "secondary" : "third"}>Log ind</Button>
           </SignInButton>
         </SignedOut>
         <SignedIn>
           <UserButton />
-
           <Link href="/secret/opret">
-            <Button variant="secondary" >Opret Event</Button>
+            <OpretButton />
           </Link>
         </SignedIn>
       </div>
 
-      {/* <div>
+     
+      <div className="md:hidden">
         <Burger />
-      </div> */}
+      </div>
     </nav>
   );
 };

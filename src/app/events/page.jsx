@@ -63,7 +63,7 @@ export default async function EventPage() {
           return (
             <div key={locationId}>
               <div id={`location-${locationId}`}>
-                <div className="mt-6 flex items-center justify-between gap-4">
+                <div className="mt-6 flex md:flex-row flex-col items-start md:items-center justify-between gap-4">
                   <h1 className="text-2xl-fluid font-extrabold">
                     {events[0]?.location?.address}
                   </h1>

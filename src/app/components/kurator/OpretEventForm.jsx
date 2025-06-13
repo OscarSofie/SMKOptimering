@@ -45,7 +45,7 @@ export default function OpretEventForm() {
         className="border border-[var(--color-kurator-primary)] p-2 text-[var(--text-sm)] leading-[var(--leading-normal)]"
       >
         <option value="">Vælg lokation</option>
-        <option value="1">Kunsthallen A</option>
+        <option value="1">Kunsthallen A, 2100 Kbh</option>
         <option value="2">Galleri B</option>
         <option value="3">Warehouse C</option>
         <option value="4">Kunstforeningen D</option>
