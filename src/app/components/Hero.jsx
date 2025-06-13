@@ -15,7 +15,7 @@ const Hero = () => {
               SMK præsenterer sæsonens mest tankevækkende udstillinger
             </p>
             <p className="text-sm-fluid">
-              Oplev værker fra hele verdenen året rundt
+              Oplev værker fra hele verdenen, året rundt
             </p>
           </div>
           <div className="flex gap-4 text-xl-fluid">
