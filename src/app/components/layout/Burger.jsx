@@ -28,9 +28,10 @@ const Burger = () => {
 
       {isOpen && (
         <>
-          <div className={`fixed top-0 right-0 h-screen w-full p-6 flex flex-col gap-6 ${backgroundColor} ${textColor}`}>
+          <div
+            className={`fixed top-0 right-0 h-screen w-full p-6 flex flex-col gap-6 ${backgroundColor} ${textColor}`}
+          >
             <div className="flex flex-row justify-between items-center">
-         
               <button
                 onClick={() => setIsOpen(false)}
                 className="top-4 right-4 text-3xl"
@@ -40,10 +41,12 @@ const Burger = () => {
               </button>
             </div>
 
-            <ul className={`flex flex-col gap-4 text-2xl-fluid mt-10 ${textColor}`}>
+            <ul
+              className={`flex flex-col gap-4 text-2xl-fluid mt-10 ${textColor}`}
+            >
               <li className="border-b pb-2 hover:underline">
                 <Link href="/events" onClick={() => setIsOpen(false)}>
-                  Udstillinger
+                  Events
                 </Link>
               </li>
               <li className="border-b pb-2 hover:underline">
@@ -56,12 +59,17 @@ const Burger = () => {
             <div className="mt-auto flex flex-col gap-4">
               <SignedOut>
                 <SignInButton>
-                  <Button variant={isHome ? "secondary" : "primary"}>Log ind</Button>
+                  <Button variant={isHome ? "secondary" : "primary"}>
+                    Log ind
+                  </Button>
                 </SignInButton>
               </SignedOut>
               <SignedIn>
                 <UserButton />
-                <OpretButton variant="primary" onClick={() => setIsOpen(false)} />
+                <OpretButton
+                  variant="primary"
+                  onClick={() => setIsOpen(false)}
+                />
               </SignedIn>
             </div>
           </div>

@@ -25,18 +25,16 @@ const Header = () => {
 
   return (
     <nav className={`flex flex-row items-center  ${navClass}`}>
-      
       <div className="text-2xl-fluid font-extrabold ">
         <Link href="/">
           SMK<span className="text-red-500">.</span>
         </Link>
       </div>
 
-      
       <div className="hidden md:flex flex-1 justify-center">
         <ul className="flex flex-row gap-4">
           <li className="hover:underline">
-            <Link href="/events">Udstillinger</Link>
+            <Link href="/events">Events</Link>
           </li>
           <li className="hover:underline">
             <Link href="/about">Om SMK</Link>
@@ -44,7 +42,6 @@ const Header = () => {
         </ul>
       </div>
 
-     
       <div className="hidden md:flex flex-row gap-4 items-center ">
         <SignedOut>
           <SignInButton>
@@ -59,7 +56,6 @@ const Header = () => {
         </SignedIn>
       </div>
 
-     
       <div className="md:hidden">
         <Burger />
       </div>

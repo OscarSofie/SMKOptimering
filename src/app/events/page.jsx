@@ -43,14 +43,14 @@ export default async function EventPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/events">Udstillinger</BreadcrumbLink>
+            <BreadcrumbLink href="/events">Events</BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
       <div className="flex flex-row justify-between mt-6">
         <h1 className="text-3xl-fluid font-extrabold leading-tight underline">
-          Udstillinger
+          Events
         </h1>
       </div>
 
