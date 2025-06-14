@@ -1,10 +1,17 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect } from "react";
 import { useZustand } from "@/store/zustand";
 
 const ValgteVaerker = () => {
-  const { artworks, removeArtwork } = useZustand();
+  const { artworks, removeArtwork, clearArtworks } = useZustand();
+
+  useEffect(() => {
+    return () => {
+      clearArtworks();
+    };
+  }, [clearArtworks]);
 
   return (
     <div className="flex flex-col justify-center gap-6 px-6 py-4 border-y-3  mb-4">

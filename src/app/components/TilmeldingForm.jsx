@@ -27,8 +27,6 @@ export default function TilmeldingForm({ event }) {
     const newBookedTickets = booked + selectedTickets;
     const orderId = generateOrderId();
 
-    router.refresh();
-
     try {
       await bookTickets(event.id, {
         bookedTickets: newBookedTickets,
@@ -45,14 +43,15 @@ export default function TilmeldingForm({ event }) {
       if (!res.ok) {
         throw new Error("Fejl ved afsendelse af mail");
       }
-
-      router.push(
-        `/bestilling?email=${encodeURIComponent(email)}&orderId=${orderId}`
-      );
     } catch (err) {
       console.error(err);
       setError("Der opstod en fejl. Prøv igen senere.");
+      return;
     }
+
+    router.push(
+      `/bestilling?email=${encodeURIComponent(email)}&orderId=${orderId}`
+    );
   };
 
   // Polling for real-time opdatering af ledige billetter
@@ -113,8 +112,7 @@ export default function TilmeldingForm({ event }) {
 
           {error && <p className="text-red-600">{error}</p>}
 
-          <SubmitButton
-          variant="third">Bekræft tilmelding</SubmitButton>
+          <SubmitButton variant="third">Bekræft tilmelding</SubmitButton>
         </form>
       ) : (
         <p className="text-red-600 font-bold">

@@ -5,20 +5,12 @@ import Button from "../Button";
 
 const RedigerButton = ({ event }) => {
   return (
-    <Link
-      href={`/secret/${event.id}`}
-      onNavigate={(e) => {
-        e.preventDefault();
-      }}
-    >
-      <Button
-        onClick={() => (window.location.href = `/secret/${event.id}`)}
-        variant="third"
-      >
-        Rediger event
-      </Button>
+    <Link href={`/secret/${event.id}`}>
+      <Button variant="third">Rediger event</Button>
     </Link>
   );
 };
 
 export default RedigerButton;
+
+//
