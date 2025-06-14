@@ -1,6 +1,10 @@
 import { getSingleArtwork } from "@/api/page";
 import Image from "next/image";
 import Link from "next/link";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import RedigerButton from "@/app/components/kurator/RedigerButton";
+import DeleteButton from "@/app/components/kurator/DeleteButton";
+import { sletEvent } from "@/actions/actions";  
 
 import {
   Breadcrumb,
@@ -63,10 +67,19 @@ const SingleEvent = async ({ params }) => {
           <span>{event.location?.address}</span>
         </div>
       </div>
-      <div className=" pt-8 pb-8 px-1 md:px-20">
-        <Link href={`/tilmelding/${event.id}`}>
-          <Button variant="third">Tilmeld dig eventet</Button>
-        </Link>
+      <div className=" pt-8 pb-8 px-1 md:px-20 flex flex-row gap-4">
+        <SignedOut>
+          <Link href={`/tilmelding/${event.id}`}>
+            <Button variant="third">Tilmeld dig eventet</Button>
+          </Link>
+        </SignedOut>
+        <SignedIn>
+          <RedigerButton event={event} />
+          <form action={sletEvent}>
+            <input type="hidden" name="eventId" value={event.id} />
+            <DeleteButton>Slet event</DeleteButton>
+          </form>
+        </SignedIn>
       </div>
 
       <div className="px-1 md:px-20 py-12 border-t">
@@ -95,7 +108,7 @@ const SingleEvent = async ({ params }) => {
                   height={300}
                   className="w-full h-auto object-cover"
                 />
-              <p>Se kunstværk →</p>
+                <p>Se kunstværk →</p>
               </Link>
             </div>
           ))}

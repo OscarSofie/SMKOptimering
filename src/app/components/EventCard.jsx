@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getSingleArtwork } from "@/api/page";
 import Image from "next/image";
 import Button from "./Button";
-import { SignedIn } from "@clerk/nextjs";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import DeleteButton from "./kurator/DeleteButton";
 import { sletEvent } from "@/actions/actions";
 import RedigerButton from "./kurator/RedigerButton";
@@ -49,6 +49,11 @@ const EventCard = async ({
         </Link>
 
         <div className="flex flex-col gap-4 mt-4">
+          <SignedOut>
+            <Link href={`/tilmelding/${event.id}`}>
+              <Button variant="third">Tilmeld dig eventet</Button>
+            </Link>
+          </SignedOut>
           <Link href={`/events/${event.id}`}>
             <Button variant="primary">Læs mere om udstillingen</Button>
           </Link>
