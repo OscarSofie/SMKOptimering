@@ -57,6 +57,8 @@ export async function redigerEvent(formData) {
   const notAvailable = events.find(
     (event) =>
       event.id !== id &&
+      event.date === date &&
+      event.locationId === locationId &&
       event.artworkIds?.some((artworkId) => artworkIds.includes(artworkId))
   );
 
