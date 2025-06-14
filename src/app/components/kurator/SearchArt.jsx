@@ -11,6 +11,8 @@ const SearchArt = ({ alleVaerker = [] }) => {
   const [results, setResults] = useState([]);
   const [page, setPage] = useState(1);
 
+  
+
   const prSide = 30;
 
   // Prompt: Hvordan laver jeg en søgefunktion der kalder et API og viser resultater? (uden useEffect)
@@ -35,6 +37,8 @@ const SearchArt = ({ alleVaerker = [] }) => {
   //
   const antalSider = Math.ceil(kunstListe.length / prSide);
   const side = kunstListe.slice((page - 1) * prSide, page * prSide);
+
+  console.log(page, side)
 
   return (
     <div className="flex flex-col gap-6 px-6 py-4 mb-2">
@@ -98,7 +102,6 @@ const SearchArt = ({ alleVaerker = [] }) => {
       <div className="flex justify-center items-center gap-6 mt-2">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-          disabled={page === 1}
           className="text-kurator-primary disabled:opacity-30"
         >
           Forrige
@@ -108,7 +111,6 @@ const SearchArt = ({ alleVaerker = [] }) => {
         </span>
         <button
           onClick={() => setPage((prev) => Math.min(prev + 1, antalSider))}
-          disabled={page === antalSider}
           className="text-kurator-primary disabled:opacity-30"
         >
           Næste
