@@ -94,7 +94,7 @@ export async function updateEvent(id, updatedData) {
 
 export async function fetchSomeArtworks() {
   const res = await fetch(
-    "https://api.smk.dk/api/v1/art/search?keys=kunst&offset=0&rows=100"
+    "https://api.smk.dk/api/v1/art/search?keys=*&offset=0&rows=100"
   );
   const data = await res.json();
   return data.items;
