@@ -45,16 +45,16 @@ export default function OpretEventForm() {
         className="border border-[var(--color-kurator-primary)] p-2 text-[var(--text-sm)] leading-[var(--leading-normal)]"
       >
         <option value="">Vælg lokation</option>
-        <option value="1">Kunsthallen A, 2100 Kbh</option>
-        <option value="2">Galleri B</option>
-        <option value="3">Warehouse C</option>
-        <option value="4">Kunstforeningen D</option>
-        <option value="5">Studio E</option>
-        <option value="6">Kunstlab F</option>
-        <option value="7">Kulturhuset G</option>
-        <option value="8">Galleriet H</option>
-        <option value="9">Kunstrum I</option>
-        <option value="10">Værkstedet J</option>
+        <option value="1">Kunsthallen A, Nyvej 12, 2100 Kbh</option>
+        <option value="2">Galleri B, Åboulevarden 21, 8000 Aarhus</option>
+        <option value="3">Warehouse C, Vestervej 3, 5000 Odense</option>
+        <option value="4">Kunstforeningen D, Strandgade 7, 1401 København K</option>
+        <option value="5">Studio E, Havnegade 45, 9000 Aalborg</option>
+        <option value="6">Kunstlab F, Nørregade 19, 6700 Esbjerg</option>
+        <option value="7">Kulturhuset G, Kirkevej 23, 4600 Køge</option>
+        <option value="8">Galleriet H, Søndergade 5, 8600 Silkeborg</option>
+        <option value="9">Kunstrum I, Skovvej 88, 2800 Lyngby</option>
+        <option value="10">Værkstedet J, Østergade 14, 7500 Holstebro</option>
       </select>
 
       <select
