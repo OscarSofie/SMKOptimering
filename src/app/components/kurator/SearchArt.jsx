@@ -5,13 +5,11 @@ import { getSearchResults } from "@/api/page";
 import { useZustand } from "@/store/zustand";
 import Image from "next/image";
 
-const SearchArt = ({ alleVaerker = [] }) => {
+const SearchArt = ({ alleVaerker = [], maxArtworks = 0 }) => {
   const { artworks, addArtwork, removeArtwork } = useZustand();
   const [searchQuery, setsearchQuery] = useState("");
   const [results, setResults] = useState([]);
   const [page, setPage] = useState(1);
-
-  
 
   const prSide = 30;
 
@@ -22,11 +20,17 @@ const SearchArt = ({ alleVaerker = [] }) => {
     setResults(data);
     setPage(1);
   };
-  
+
   //v Prompt: Jeg skal lave en funktion der kan tilføje og fjerne et værk, det skal ske igennem objekts id.
   const klikCheckbox = (item) => {
     const id = encodeURIComponent(item.object_number);
     const isSelected = artworks.some((art) => art.object_number === id);
+    // Hvis vi prøver at tilføje og har nået max, gør ingenting
+    if (!isSelected && maxArtworks && artworks.length >= maxArtworks) {
+      alert(`Du kan maksimalt vælge ${maxArtworks} værker til denne lokation.`);
+      return;
+    }
+
     isSelected ? removeArtwork(id) : addArtwork(item);
   };
 
@@ -38,7 +42,7 @@ const SearchArt = ({ alleVaerker = [] }) => {
   const antalSider = Math.ceil(kunstListe.length / prSide);
   const side = kunstListe.slice((page - 1) * prSide, page * prSide);
 
-  console.log(page, side)
+  console.log(page, side);
 
   return (
     <div className="flex flex-col gap-6 px-6 py-4 mb-2">
@@ -59,7 +63,7 @@ const SearchArt = ({ alleVaerker = [] }) => {
       </div>
 
       {kunstListe.length > 0 && (
-        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {side.map((item) => (
             <li
               key={encodeURIComponent(item.object_number)}

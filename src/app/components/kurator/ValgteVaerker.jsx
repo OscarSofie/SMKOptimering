@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useZustand } from "@/store/zustand";
 
-const ValgteVaerker = () => {
+const ValgteVaerker = ({ maxArtworks }) => {
   const { artworks, removeArtwork, clearArtworks } = useZustand();
 
   useEffect(() => {
@@ -16,10 +16,15 @@ const ValgteVaerker = () => {
   return (
     <div className="flex flex-col justify-center gap-6 px-6 py-4 border-y-3  mb-4">
       <h2 className="text-xl-fluid font-extrabold leading-tight">
-        Valgte værker:
+        Valgte værker: {artworks.length}
+        {maxArtworks && (
+          <span className="text-base-fluid font-normal ml-2">
+            / {maxArtworks} mulige
+          </span>
+        )}
       </h2>
 
-      <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {artworks.map((item) => (
           <li key={item.object_number} className="flex flex-col">
             <div className="relative w-full aspect-square overflow-hidden border border-kurator-primary">

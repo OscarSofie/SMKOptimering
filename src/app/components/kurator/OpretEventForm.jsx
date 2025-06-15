@@ -1,12 +1,26 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useZustand } from "@/store/zustand";
 import { opretEvent } from "@/actions/actions";
+import { getLocations } from "@/api/locations";
 import SubmitButton from "./SubmitButton";
 
-export default function OpretEventForm() {
+export default function OpretEventForm({ onLocationChange }) {
   const { artworks } = useZustand();
   const artworkIds = artworks.map((art) => art.object_number);
+  const [selectedLocationId, setSelectedLocationId] = useState("");
+  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+    getLocations().then(setLocations);
+  }, []);
+
+  useEffect(() => {
+    if (onLocationChange) {
+      onLocationChange(selectedLocationId);
+    }
+  }, [selectedLocationId, onLocationChange]);
 
   return (
     <form
@@ -43,18 +57,15 @@ export default function OpretEventForm() {
         name="locationId"
         required
         className="border border-[var(--color-kurator-primary)] p-2 text-[var(--text-sm)] leading-[var(--leading-normal)]"
+        value={selectedLocationId}
+        onChange={(e) => setSelectedLocationId(e.target.value)}
       >
         <option value="">Vælg lokation</option>
-        <option value="1">Kunsthallen A, Nyvej 12, 2100 Kbh</option>
-        <option value="2">Galleri B, Åboulevarden 21, 8000 Aarhus</option>
-        <option value="3">Warehouse C, Vestervej 3, 5000 Odense</option>
-        <option value="4">Kunstforeningen D, Strandgade 7, 1401 København K</option>
-        <option value="5">Studio E, Havnegade 45, 9000 Aalborg</option>
-        <option value="6">Kunstlab F, Nørregade 19, 6700 Esbjerg</option>
-        <option value="7">Kulturhuset G, Kirkevej 23, 4600 Køge</option>
-        <option value="8">Galleriet H, Søndergade 5, 8600 Silkeborg</option>
-        <option value="9">Kunstrum I, Skovvej 88, 2800 Lyngby</option>
-        <option value="10">Værkstedet J, Østergade 14, 7500 Holstebro</option>
+        {locations.map((loc) => (
+          <option key={loc.id} value={loc.id}>
+            {loc.name}
+          </option>
+        ))}
       </select>
 
       <select
