@@ -6,7 +6,7 @@ import SubmitButton from "./SubmitButton";
 import { useState, useEffect } from "react";
 import { getLocations } from "@/api/locations";
 
-export default function RedigerEventForm({ event }) {
+export default function RedigerEventForm({ event, onLocationChange }) {
   const { artworks } = useZustand();
   const artworkIds = artworks.map((art) => art.object_number);
   const [locations, setLocations] = useState([]);
@@ -56,7 +56,10 @@ export default function RedigerEventForm({ event }) {
         required
         className="border border-[var(--color-kurator-primary)] p-2 text-[var(--text-sm)] leading-[var(--leading-normal)]"
         value={selectedLocationId}
-        onChange={(e) => setSelectedLocationId(e.target.value)}
+        onChange={(e) => {
+          setSelectedLocationId(e.target.value);
+          if (onLocationChange) onLocationChange(e.target.value); // <-- tilføj denne linje
+        }}
       >
         <option value="">Vælg lokation</option>
         {locations.map((loc) => (

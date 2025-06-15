@@ -1,51 +1,61 @@
 "use client";
-import useSWR from "swr";
+import { useState, useEffect } from "react";
 import RedigerEventForm from "@/app/components/kurator/RedigerEventForm";
 import AllArtworks from "@/app/components/kurator/AllArtworks";
-
+import RedigerArtworks from "@/app/components/kurator/RedigerArtworks";
 import { getSingleArtwork } from "@/api/page";
 import { getLocations } from "@/api/locations";
-
-import RedigerArtworks from "@/app/components/kurator/RedigerArtworks";
-import { useState, useEffect } from "react";
 import { use } from "react";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function Page({ params }) {
   const { id } = use(params);
-  const [selectedLocationId, setSelectedLocationId] = useState("");
 
-  // Fetch event data
-  const { data: event, error: eventError } = useSWR(
-    id ? `https://eksamenso.onrender.com/events/${id}` : null,
-    fetcher
-  );
+  const [event, setEvent] = useState(null);
+  const [locations, setLocations] = useState(null);
+  const [artworks, setArtworks] = useState(null);
+  const [selectedLocationId, setSelectedLocationId] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch event
+  useEffect(() => {
+    setLoading(true);
+    fetch(`https://eksamenso.onrender.com/events/${id}`)
+      .then((res) => res.json())
+      .then((data) => setEvent(data))
+      .catch(() => setError("Fejl ved hentning af event"));
+  }, [id]);
 
   // Fetch locations
-  const { data: locations, error: locationsError } = useSWR(
-    "https://eksamenso.onrender.com/locations",
-    fetcher
-  );
+  useEffect(() => {
+    getLocations()
+      .then(setLocations)
+      .catch(() => setError("Fejl ved hentning af locations"));
+  }, []);
 
   // Fetch artworks for event
-  const { data: artworks, error: artworksError } = useSWR(
-    event && event.artworkIds
-      ? ["artworks", event.artworkIds]
-      : null,
-    async ([, ids]) => getSingleArtwork(ids)
-  );
-
-  // Når event og locations er loaded, sæt initial selectedLocationId hvis ikke allerede sat
   useEffect(() => {
-    if (event && event.location && event.location.id && !selectedLocationId) {
+    if (event && event.artworkIds) {
+      getSingleArtwork(event.artworkIds)
+        .then(setArtworks)
+        .catch(() => setError("Fejl ved hentning af artworks"));
+    }
+  }, [event]);
+
+  // Sæt initial selectedLocationId når event er loaded
+  useEffect(() => {
+    if (event && event.location && event.location.id) {
       setSelectedLocationId(String(event.location.id));
     }
-  }, [event, selectedLocationId]);
+  }, [event]);
 
-  if (eventError || locationsError || artworksError)
-    return <div>Der opstod en fejl ved indlæsning...</div>;
-  if (!event || !locations || !artworks) return <div>Indlæser...</div>;
+  useEffect(() => {
+    if (event && locations && artworks) setLoading(false);
+  }, [event, locations, artworks]);
+
+  if (error) return <div>Der opstod en fejl ved indlæsning...</div>;
+  if (loading || !event || !locations || !artworks)
+    return <div>Indlæser...</div>;
 
   return (
     <div className="flex flex-col gap-10 px-6 py-8">
@@ -57,11 +67,20 @@ export default function Page({ params }) {
 
       <div className="flex flex-col lg:flex-row gap-y-12 lg:gap-y-0 lg:gap-x-12 mx-auto">
         <div>
-          <RedigerEventForm event={event} locations={locations} onLocationChange={setSelectedLocationId} />
+          <RedigerEventForm
+            event={event}
+            locations={locations}
+            selectedLocationId={selectedLocationId}
+            setSelectedLocationId={setSelectedLocationId}
+            onLocationChange={setSelectedLocationId}
+          />
         </div>
 
         <div className="flex-1 flex flex-col gap-10">
-          <AllArtworks locations={locations} selectedLocationId={selectedLocationId} />
+          <AllArtworks
+            locations={locations}
+            selectedLocationId={selectedLocationId}
+          />
         </div>
       </div>
     </div>
