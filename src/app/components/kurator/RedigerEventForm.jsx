@@ -11,7 +11,7 @@ export default function RedigerEventForm({ event, onLocationChange }) {
   const artworkIds = artworks.map((art) => art.object_number);
   const [locations, setLocations] = useState([]);
   const [selectedLocationId, setSelectedLocationId] = useState(
-    event.location?.id ? String(event.location.id) : ""
+    event.location?.id ? (event.location.id) : ""
   );
 
   useEffect(() => {
