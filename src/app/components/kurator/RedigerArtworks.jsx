@@ -24,7 +24,7 @@ export default function RedigerArtworks({ artworks }) {
       clearArtworks();
       artworks.forEach((art) => addArtwork(art));
     }
-  }, []);
+  }, [artworks, current.length, clearArtworks, addArtwork]);
 
   return null;
 }

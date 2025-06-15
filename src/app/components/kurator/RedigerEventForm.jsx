@@ -3,10 +3,20 @@
 import { useZustand } from "@/store/zustand";
 import { redigerEvent } from "@/actions/actions";
 import SubmitButton from "./SubmitButton";
+import { useState, useEffect } from "react";
+import { getLocations } from "@/api/locations";
 
 export default function RedigerEventForm({ event }) {
   const { artworks } = useZustand();
   const artworkIds = artworks.map((art) => art.object_number);
+  const [locations, setLocations] = useState([]);
+  const [selectedLocationId, setSelectedLocationId] = useState(
+    event.location?.id ? String(event.location.id) : ""
+  );
+
+  useEffect(() => {
+    getLocations().then(setLocations);
+  }, []);
 
   return (
     <form
@@ -45,19 +55,15 @@ export default function RedigerEventForm({ event }) {
         name="locationId"
         required
         className="border border-[var(--color-kurator-primary)] p-2 text-[var(--text-sm)] leading-[var(--leading-normal)]"
-        defaultValue={event.location?.name}
+        value={selectedLocationId}
+        onChange={(e) => setSelectedLocationId(e.target.value)}
       >
-      <option value="">Vælg lokation</option>
-        <option value="1">Kunsthallen A, 2100 Kbh</option>
-        <option value="2">Galleri B, 8000 Aarhus</option>
-        <option value="3">Warehouse C, 5000 Odense</option>
-        <option value="4">Kunstforeningen D, 1401 København K</option>
-        <option value="5">Studio E, 9000 Aalborg</option>
-        <option value="6">Kunstlab F, 6700 Esbjerg</option>
-        <option value="7">Kulturhuset G, 4600 Køge</option>
-        <option value="8">Galleriet H, 8600 Silkeborg</option>
-        <option value="9">Kunstrum I, 2800 Lyngby</option>
-        <option value="10">Værkstedet J, 7500 Holstebro</option>
+        <option value="">Vælg lokation</option>
+        {locations.map((loc) => (
+          <option key={loc.id} value={loc.id}>
+            {loc.name}
+          </option>
+        ))}
       </select>
 
       <select

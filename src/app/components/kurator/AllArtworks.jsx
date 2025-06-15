@@ -22,7 +22,7 @@ const AllArtworks = ({ selectedLocationId }) => {
       return;
     }
     const loc = locations.find(
-      (l) => String(l.id) === String(selectedLocationId)
+      (l) => (l.id) === (selectedLocationId)
     );
     setMaxArtworks(loc?.maxArtworks || "0");
   }, [selectedLocationId, locations]);

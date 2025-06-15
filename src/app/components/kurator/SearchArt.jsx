@@ -5,7 +5,7 @@ import { getSearchResults } from "@/api/page";
 import { useZustand } from "@/store/zustand";
 import Image from "next/image";
 
-const SearchArt = ({ alleVaerker = [], maxArtworks = 0 }) => {
+const SearchArt = ({ alleVaerker = [], maxArtworks }) => {
   const { artworks, addArtwork, removeArtwork } = useZustand();
   const [searchQuery, setsearchQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -64,43 +64,43 @@ const SearchArt = ({ alleVaerker = [], maxArtworks = 0 }) => {
 
       {kunstListe.length > 0 && (
         <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {side.map((item) => (
-            <li
-              key={encodeURIComponent(item.object_number)}
-              className="flex flex-col"
-            >
-              <div className="relative w-full aspect-square overflow-hidden border border-kurator-primary">
-                <Image
-                  src={item.image_thumbnail || "/img/placeholder.svg"}
-                  alt="Artwork"
-                  fill
-                  className="object-cover"
-                />
-
-                <label className="absolute right-3 top-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={artworks.some(
-                      (art) =>
-                        art.object_number ===
-                        encodeURIComponent(item.object_number)
-                    )}
-                    onChange={() => klikCheckbox(item)}
-                    className="w-4 h-4 sm:w-6 sm:h-6 cursor-pointer border border-kurator-primary "
+          {side.map((item) => {
+            const id = encodeURIComponent(item.object_number);
+            const isSelected = artworks.some((art) => art.object_number === id);
+            const disableAdd =
+              !isSelected && Number(maxArtworks) > 0 && artworks.length >= Number(maxArtworks);
+            return (
+              <li key={id} className="flex flex-col">
+                <div className="relative w-full aspect-square overflow-hidden border border-kurator-primary">
+                  <Image
+                    src={item.image_thumbnail || "/img/placeholder.svg"}
+                    alt="Artwork"
+                    fill
+                    className="object-cover"
                   />
-                </label>
-              </div>
 
-              <div className="mt-2">
-                <p className="font-semibold text-sm-fluid leading-tight">
-                  {item.titles?.[0]?.title || item.object_number}
-                </p>
-                <p className="text-xs-fluid text-kurator-secondary">
-                  {item.artist || "Ukendt kunstner"}
-                </p>
-              </div>
-            </li>
-          ))}
+                  <label className="absolute right-3 top-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() => klikCheckbox(item)}
+                      className="w-4 h-4 sm:w-6 sm:h-6 cursor-pointer border border-kurator-primary "
+                      disabled={disableAdd}
+                    />
+                  </label>
+                </div>
+
+                <div className="mt-2">
+                  <p className="font-semibold text-sm-fluid leading-tight">
+                    {item.titles?.[0]?.title || item.object_number}
+                  </p>
+                  <p className="text-xs-fluid text-kurator-secondary">
+                    {item.artist || "Ukendt kunstner"}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       )}
       <div className="flex justify-center items-center gap-6 mt-2">

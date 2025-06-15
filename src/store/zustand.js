@@ -4,6 +4,8 @@ import { persist } from "zustand/middleware";
 export const useZustand = create(
   (set) => ({
     artworks: [],
+    selectedLocationId: null,
+    maxArtworks: null,
     addArtwork: (artwork) =>
       set((state) => {
         const exists = state.artworks.find(
@@ -19,6 +21,8 @@ export const useZustand = create(
         ),
       })),
     clearArtworks: () => set({ artworks: [] }),
+    setSelectedLocationId: (id) => set({ selectedLocationId: id }),
+    setArtworks: (max) => set({ maxArtworks: max }),
   }),
   {
     name: "selected-artworks-storage",
