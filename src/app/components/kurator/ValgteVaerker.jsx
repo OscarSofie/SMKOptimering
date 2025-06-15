@@ -17,12 +17,18 @@ const ValgteVaerker = ({ maxArtworks }) => {
     <div className="flex flex-col justify-center gap-6 px-6 py-4 border-y-3  mb-4">
       <h2 className="text-xl-fluid font-extrabold leading-tight">
         Valgte værker: {artworks.length}
-        {maxArtworks && (
+        {maxArtworks &&  (
           <span className="text-base-fluid font-normal ml-2">
             / {maxArtworks} mulige
           </span>
         )}
       </h2>
+      
+      {maxArtworks > 0 && artworks.length > maxArtworks && (
+        <div className="text-red-600 font-semibold mb-2">
+          Du har valgt for mange værker til denne lokation!
+        </div>
+      )}
 
       <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {artworks.map((item) => (
