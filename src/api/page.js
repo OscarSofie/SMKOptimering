@@ -148,3 +148,13 @@ export async function POST(req) {
     return new Response(JSON.stringify({ error: "Mailfejl" }), { status: 500 });
   }
 }
+
+export async function getLocations() {
+  const res = await fetch("https://eksamenso.onrender.com/locations", {
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    throw new Error("Kunne ikke hente lokationer");
+  }
+  return await res.json();
+}

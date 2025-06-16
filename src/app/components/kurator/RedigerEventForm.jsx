@@ -4,7 +4,7 @@ import { useZustand } from "@/store/zustand";
 import { redigerEvent } from "@/actions/actions";
 import SubmitButton from "./SubmitButton";
 import { useState, useEffect } from "react";
-import { getLocations } from "@/api/locations";
+import { getLocations } from "@/api/page.js";
 
 export default function RedigerEventForm({ event, onLocationChange }) {
   const { artworks } = useZustand();

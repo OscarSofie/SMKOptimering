@@ -4,7 +4,7 @@ import RedigerEventForm from "@/app/components/kurator/RedigerEventForm";
 import AllArtworks from "@/app/components/kurator/AllArtworks";
 import RedigerArtworks from "@/app/components/kurator/RedigerArtworks";
 import { getSingleArtwork } from "@/api/page";
-import { getLocations } from "@/api/locations";
+import { getLocations } from "@/api/page";
 import { use } from "react";
 
 export default function Page({ params }) {
@@ -23,14 +23,14 @@ export default function Page({ params }) {
     fetch(`https://eksamenso.onrender.com/events/${id}`)
       .then((res) => res.json())
       .then((data) => setEvent(data))
-      .catch(() => setError("Fejl ved hentning af event"));
+   
   }, [id]);
 
   // Fetch locations
   useEffect(() => {
     getLocations()
       .then(setLocations)
-      .catch(() => setError("Fejl ved hentning af locations"));
+   
   }, []);
 
   // Fetch artworks for event
@@ -38,14 +38,14 @@ export default function Page({ params }) {
     if (event && event.artworkIds) {
       getSingleArtwork(event.artworkIds)
         .then(setArtworks)
-        .catch(() => setError("Fejl ved hentning af artworks"));
+       
     }
   }, [event]);
 
   // Sæt initial selectedLocationId når event er loaded
   useEffect(() => {
     if (event && event.location && event.location.id) {
-      setSelectedLocationId(String(event.location.id));
+      setSelectedLocationId((event.location.id));
     }
   }, [event]);
 
@@ -53,7 +53,6 @@ export default function Page({ params }) {
     if (event && locations && artworks) setLoading(false);
   }, [event, locations, artworks]);
 
-  if (error) return <div>Der opstod en fejl ved indlæsning...</div>;
   if (loading || !event || !locations || !artworks)
     return <div>Indlæser...</div>;
 

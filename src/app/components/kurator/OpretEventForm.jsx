@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useZustand } from "@/store/zustand";
 import { opretEvent } from "@/actions/actions";
-import { getLocations } from "@/api/locations";
+import { getLocations } from "@/api/page.js";
 import SubmitButton from "./SubmitButton";
 
 export default function OpretEventForm({ onLocationChange }) {

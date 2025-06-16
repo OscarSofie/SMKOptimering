@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { fetchSomeArtworks } from "@/api/page";
-import { getLocations } from "@/api/locations";
+import { getLocations } from "@/api/page";
 import ValgteVaerker from "./ValgteVaerker";
 import SearchArt from "./SearchArt";
 
