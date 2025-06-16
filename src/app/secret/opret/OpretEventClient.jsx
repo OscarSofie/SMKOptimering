@@ -17,7 +17,11 @@ export default function OpretEventClient({ locations }) {
           <OpretEventForm locations={locations} onLocationChange={setSelectedLocationId} />
         </div>
         <div className="flex-1">
-          <AllArtworks locations={locations} selectedLocationId={selectedLocationId} />
+          <AllArtworks
+            locations={locations}
+            selectedLocationId={selectedLocationId}
+            disableArtSelection={!selectedLocationId}
+          />
         </div>
       </div>
     </div>

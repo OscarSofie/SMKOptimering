@@ -5,7 +5,7 @@ import { getSearchResults } from "@/api/page";
 import { useZustand } from "@/store/zustand";
 import Image from "next/image";
 
-const SearchArt = ({ alleVaerker = [], maxArtworks }) => {
+const SearchArt = ({ alleVaerker = [], maxArtworks, disableArtSelection = false }) => {
   const { artworks, addArtwork, removeArtwork } = useZustand();
   const [searchQuery, setsearchQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -23,6 +23,7 @@ const SearchArt = ({ alleVaerker = [], maxArtworks }) => {
 
   //v Prompt: Jeg skal lave en funktion der kan tilføje og fjerne et værk, det skal ske igennem objekts id.
   const klikCheckbox = (item) => {
+    if (disableArtSelection) return;
     const id = encodeURIComponent(item.object_number);
     const isSelected = artworks.some((art) => art.object_number === id);
     // Hvis vi prøver at tilføje og har nået max, gør ingenting
@@ -30,7 +31,6 @@ const SearchArt = ({ alleVaerker = [], maxArtworks }) => {
       alert(`Du kan maksimalt vælge ${maxArtworks} værker til denne lokation.`);
       return;
     }
-
     isSelected ? removeArtwork(id) : addArtwork(item);
   };
 
@@ -68,7 +68,7 @@ const SearchArt = ({ alleVaerker = [], maxArtworks }) => {
             const id = encodeURIComponent(item.object_number);
             const isSelected = artworks.some((art) => art.object_number === id);
             const disableAdd =
-              !isSelected && Number(maxArtworks) > 0 && artworks.length >= Number(maxArtworks);
+              disableArtSelection || (!isSelected && Number(maxArtworks) > 0 && artworks.length >= Number(maxArtworks));
             return (
               <li key={id} className="flex flex-col">
                 <div className="relative w-full aspect-square overflow-hidden border border-kurator-primary">
@@ -78,7 +78,6 @@ const SearchArt = ({ alleVaerker = [], maxArtworks }) => {
                     fill
                     className="object-cover"
                   />
-
                   <label className="absolute right-3 top-2 cursor-pointer">
                     <input
                       type="checkbox"
@@ -89,7 +88,6 @@ const SearchArt = ({ alleVaerker = [], maxArtworks }) => {
                     />
                   </label>
                 </div>
-
                 <div className="mt-2">
                   <p className="font-semibold text-sm-fluid leading-tight">
                     {item.titles?.[0]?.title || item.object_number}

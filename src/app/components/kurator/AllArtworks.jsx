@@ -4,18 +4,22 @@ import ValgteVaerker from "./ValgteVaerker";
 import SearchArt from "./SearchArt";
 import { fetchSomeArtworks } from "@/api/page";
 
-const AllArtworks = ({ locations, selectedLocationId}) => {
-  const [vaerker, setVaerker] = useState([]);
+const AllArtworks = ({ locations = [], selectedLocationId = "", vaerker = [], disableArtSelection = false }) => {
+  const [fetchedVaerker, setFetchedVaerker] = useState(vaerker);
 
   useEffect(() => {
-    fetchSomeArtworks().then(setVaerker);
-  }, []);
+    if (vaerker.length === 0) {
+      fetchSomeArtworks().then(setFetchedVaerker);
+    } else {
+      setFetchedVaerker(vaerker);
+    }
+  }, [vaerker]);
 
   const maxArtworks = locations.find((l) => l.id === selectedLocationId)?.maxArtworks || 0;
   return (
     <div>
       <ValgteVaerker maxArtworks={maxArtworks} />
-      <SearchArt maxArtworks={maxArtworks} alleVaerker={vaerker} />
+      <SearchArt maxArtworks={maxArtworks} alleVaerker={fetchedVaerker} disableArtSelection={disableArtSelection} />
     </div>
   );
 };

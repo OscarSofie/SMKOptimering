@@ -25,7 +25,7 @@ export default function RedigerEventClient({ event, locations, artworks }) {
             onLocationChange={setSelectedLocationId}
           />
         </div>
-        <div className="flex-1 flex flex-col gap-10">
+        <div>
           <AllArtworks
             locations={locations}
             selectedLocationId={selectedLocationId}
