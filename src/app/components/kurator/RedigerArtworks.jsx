@@ -12,14 +12,19 @@
 // }
 
 "use client";
+import { useEffect } from "react";
 import { useZustand } from "@/store/zustand";
 
 export default function RedigerArtworks({ artworks }) {
-  const { addArtwork, artworks: current, clearArtworks } = useZustand();
-  // Sæt artworks kun første gang hvis current er tom
-  if (artworks.length > 0 && current.length === 0) {
-    clearArtworks();
-    artworks.forEach((art) => addArtwork(art));
-  }
+  const { artworks: current, clearArtworks, addArtwork } = useZustand();
+
+  useEffect(() => {
+    if (current.length === 0 && artworks.length > 0) {
+      clearArtworks();
+      artworks.forEach((art) => addArtwork(art));
+    }
+    // eslint-disable-next-line
+  }, [artworks]);
+
   return null;
 }

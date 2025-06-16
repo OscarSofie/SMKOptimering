@@ -4,7 +4,7 @@ import ValgteVaerker from "./ValgteVaerker";
 import SearchArt from "./SearchArt";
 import { fetchSomeArtworks } from "@/api/page";
 
-const AllArtworks = ({ locations = [], selectedLocationId = "" }) => {
+const AllArtworks = ({ locations, selectedLocationId}) => {
   const [vaerker, setVaerker] = useState([]);
 
   useEffect(() => {

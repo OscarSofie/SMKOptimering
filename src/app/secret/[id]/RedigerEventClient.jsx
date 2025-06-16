@@ -5,7 +5,7 @@ import AllArtworks from "@/app/components/kurator/AllArtworks";
 import RedigerArtworks from "@/app/components/kurator/RedigerArtworks";
 
 export default function RedigerEventClient({ event, locations, artworks }) {
-  const [selectedLocationId, setSelectedLocationId] = useState(event?.location?.id || "");
+  const [selectedLocationId, setSelectedLocationId] = useState(event?.location?.id);
 
   return (
     <div className="flex flex-col gap-10 px-6 py-8">
