@@ -1,11 +1,11 @@
-"use client";
+
 
 import { useState } from "react";
 import { getSearchResults } from "@/api/page";
 import { useZustand } from "@/store/zustand";
 import Image from "next/image";
 
-const SearchArt = ({ alleVaerker = [], maxArtworks }) => {
+const SearchArt = ({ alleVaerker = [], maxArtworks, disableAdd }) => {
   const { artworks, addArtwork, removeArtwork } = useZustand();
   const [searchQuery, setsearchQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -26,6 +26,10 @@ const SearchArt = ({ alleVaerker = [], maxArtworks }) => {
     const id = encodeURIComponent(item.object_number);
     const isSelected = artworks.some((art) => art.object_number === id);
     // Hvis vi prøver at tilføje og har nået max, gør ingenting
+    if (disableAdd) {
+      alert("Vælg først en lokation for at kunne tilføje værker.");
+      return;
+    }
     if (!isSelected && maxArtworks && artworks.length >= maxArtworks) {
       alert(`Du kan maksimalt vælge ${maxArtworks} værker til denne lokation.`);
       return;
@@ -67,8 +71,7 @@ const SearchArt = ({ alleVaerker = [], maxArtworks }) => {
           {side.map((item) => {
             const id = encodeURIComponent(item.object_number);
             const isSelected = artworks.some((art) => art.object_number === id);
-            const disableAdd =
-              !isSelected && Number(maxArtworks) > 0 && artworks.length >= Number(maxArtworks);
+            const disableAddCheckbox = disableAdd || (!isSelected && Number(maxArtworks) > 0 && artworks.length >= Number(maxArtworks));
             return (
               <li key={id} className="flex flex-col">
                 <div className="relative w-full aspect-square overflow-hidden border border-kurator-primary">
@@ -85,7 +88,7 @@ const SearchArt = ({ alleVaerker = [], maxArtworks }) => {
                       checked={isSelected}
                       onChange={() => klikCheckbox(item)}
                       className="w-4 h-4 sm:w-6 sm:h-6 cursor-pointer border border-kurator-primary "
-                      disabled={disableAdd}
+                      disabled={disableAddCheckbox}
                     />
                   </label>
                 </div>
