@@ -1,26 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useZustand } from "@/store/zustand";
 import { opretEvent } from "@/actions/actions";
-import { getLocations } from "@/api/page.js";
 import SubmitButton from "./SubmitButton";
 
-export default function OpretEventForm({ onLocationChange }) {
+export default function OpretEventForm({ locations = [], onLocationChange }) {
   const { artworks } = useZustand();
   const artworkIds = artworks.map((art) => art.object_number);
   const [selectedLocationId, setSelectedLocationId] = useState("");
-  const [locations, setLocations] = useState([]);
 
-  useEffect(() => {
-    getLocations().then(setLocations);
-  }, []);
-
-  useEffect(() => {
-    if (onLocationChange) {
-      onLocationChange(selectedLocationId);
-    }
-  }, [selectedLocationId, onLocationChange]);
+  // Kald onLocationChange direkte ved ændring
+  const handleLocationChange = (e) => {
+    setSelectedLocationId(e.target.value);
+    if (onLocationChange) onLocationChange(e.target.value);
+  };
 
   return (
     <form
@@ -30,7 +24,6 @@ export default function OpretEventForm({ onLocationChange }) {
       <h2 className="font-extrabold text-[var(--text-xl)] leading-[var(--leading-tight)] mb-2">
         Opret event
       </h2>
-
       <input
         type="text"
         name="title"
@@ -38,13 +31,11 @@ export default function OpretEventForm({ onLocationChange }) {
         required
         className="border border-[var(--color-kurator-primary)] p-2 text-[var(--text-sm)] leading-[var(--leading-normal)]"
       />
-
       <textarea
         name="description"
         placeholder="Beskrivelse"
         className="border border-[var(--color-kurator-primary)] p-2 text-[var(--text-sm)] leading-[var(--leading-normal)]"
       ></textarea>
-
       <input
         type="text"
         name="curator"
@@ -52,13 +43,12 @@ export default function OpretEventForm({ onLocationChange }) {
         required
         className="border border-[var(--color-kurator-primary)] p-2 text-[var(--text-sm)] leading-[var(--leading-normal)]"
       />
-
       <select
         name="locationId"
         required
         className="border border-[var(--color-kurator-primary)] p-2 text-[var(--text-sm)] leading-[var(--leading-normal)]"
         value={selectedLocationId}
-        onChange={(e) => setSelectedLocationId(e.target.value)}
+        onChange={handleLocationChange}
       >
         <option value="">Vælg lokation</option>
         {locations.map((loc) => (
@@ -67,7 +57,6 @@ export default function OpretEventForm({ onLocationChange }) {
           </option>
         ))}
       </select>
-
       <select
         name="date"
         required
@@ -96,13 +85,11 @@ export default function OpretEventForm({ onLocationChange }) {
           </option>
         ))}
       </select>
-
       <input
         type="hidden"
         name="artworkIds"
         value={JSON.stringify(artworkIds)}
       />
-
       <SubmitButton className="btn-kurator hover:btn-kurator text-[var(--text-sm)] px-4 py-2 font-semibold leading-[var(--leading-tight)]">
         Opret event
       </SubmitButton>
