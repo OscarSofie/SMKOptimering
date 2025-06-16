@@ -97,7 +97,9 @@ const ArtSingleview = async ({ params, searchParams }) => {
                   <Link
                     key={artwork.id}
                     href={{
-                      pathname: `/artworks/${artwork.object_number}`,
+                      pathname: `/artworks/${encodeURIComponent(
+                        artwork.object_number
+                      )}`,
                       query: {
                         eventId: eventId,
                         eventName: eventName,

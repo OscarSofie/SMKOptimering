@@ -14,7 +14,7 @@ export default async function EventPage() {
 
   const allLocations = {};
   const eventGroups = {};
-  allEvents.forEach((event) => {
+  allEvents.map((event) => {
     if (event.locationId && event.location?.address) {
       allLocations[event.locationId] = event.location.address;
     }

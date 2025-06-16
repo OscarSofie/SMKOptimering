@@ -4,7 +4,7 @@ import Link from "next/link";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import RedigerButton from "@/app/components/kurator/RedigerButton";
 import DeleteButton from "@/app/components/kurator/DeleteButton";
-import { sletEvent } from "@/actions/actions";  
+import { sletEvent } from "@/actions/actions";
 
 import {
   Breadcrumb,
@@ -94,7 +94,9 @@ const SingleEvent = async ({ params }) => {
             >
               <Link
                 href={{
-                  pathname: `/artworks/${art.object_number}`,
+                  pathname: `/artworks/${encodeURIComponent(
+                    art.object_number
+                  )}`,
                   query: {
                     eventId: event.id,
                     eventName: event.title,
