@@ -23,8 +23,7 @@ export default function RedigerArtworks({ artworks }) {
       clearArtworks();
       artworks.forEach((art) => addArtwork(art));
     }
-    // eslint-disable-next-line
-  }, [artworks]);
+  }, []);
 
   return null;
 }
