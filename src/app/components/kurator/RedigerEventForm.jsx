@@ -58,7 +58,7 @@ export default function RedigerEventForm({ event, onLocationChange }) {
         value={selectedLocationId}
         onChange={(e) => {
           setSelectedLocationId(e.target.value);
-          if (onLocationChange) onLocationChange(e.target.value); // <-- tilføj denne linje
+          if (onLocationChange) onLocationChange(e.target.value);
         }}
       >
         <option value="">Vælg lokation</option>
