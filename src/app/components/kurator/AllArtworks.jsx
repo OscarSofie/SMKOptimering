@@ -15,8 +15,6 @@ const AllArtworks = ({
   useEffect(() => {
     if (vaerker.length === 0) {
       fetchSomeArtworks().then(setFetchedVaerker);
-    } else {
-      setFetchedVaerker(vaerker);
     }
   }, []);
 
