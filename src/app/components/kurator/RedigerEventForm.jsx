@@ -3,13 +3,20 @@
 import { useZustand } from "@/store/zustand";
 import { redigerEvent } from "@/actions/actions";
 import SubmitButton from "./SubmitButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getLocations } from "@/api/page.js";
 
-export default function RedigerEventForm({ event, locations, onLocationChange }) {
+export default function RedigerEventForm({ event, onLocationChange }) {
   const { artworks } = useZustand();
   const artworkIds = artworks.map((art) => art.object_number);
-  const [selectedLocationId, setSelectedLocationId] = useState(event.location?.id
+  const [locations, setLocations] = useState([]);
+  const [selectedLocationId, setSelectedLocationId] = useState(
+    event.location?.id ? event.location.id : ""
   );
+
+  useEffect(() => {
+    getLocations().then(setLocations);
+  }, []);
 
   return (
     <form
@@ -51,7 +58,7 @@ export default function RedigerEventForm({ event, locations, onLocationChange })
         value={selectedLocationId}
         onChange={(e) => {
           setSelectedLocationId(e.target.value);
-          if (onLocationChange) onLocationChange(e.target.value);
+          if (onLocationChange) onLocationChange(e.target.value); // <-- tilføj denne linje
         }}
       >
         <option value="">Vælg lokation</option>
